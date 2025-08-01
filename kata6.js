@@ -13,6 +13,8 @@ function fizzBuzz(n) {
       answer.push("Buzz");
     } else 
     {
+      // Si le nombre n'est ni divisible par 3 ni par 5, on le convertit en chaîne de caractères
+      // et on l'ajoute à la liste des réponses
       answer.push(i.toString());
     }
   }
@@ -41,11 +43,13 @@ function twoSum(number, target) {
     const nombreRestant = target - number[i];
     if (map.has(nombreRestant)) 
     // Si le nombre restant est dans la map, on retourne les indices
-    {
+    {// On utilise map.get pour obtenir l'indice du nombre restant
+      // et i pour l'indice du nombre actuel
       return [map.get(nombreRestant), i];
     }
     map.set(number[i], i);
   }
+  // Si aucun couple n'est trouvé, on retourne un tableau vide
   return [];
 }
 
@@ -57,9 +61,9 @@ function twoSum(number, target) {
 // Explication : 2 (à l’indice 0) + 7 (à l’indice 1) = 9
 
 // Exemple 2
-const numbers = [3, 2, 4]
-const target = 6
-console.log(twoSum(numbers, target));
+// const numbers = [3, 2, 4]
+// const target = 6
+// console.log(twoSum(numbers, target));
 // // retourne [1, 2]
 
 // // Exemple 3
@@ -67,3 +71,46 @@ console.log(twoSum(numbers, target));
 // const target = 6
 // console.log(twoSum(numbers, target));
 // // retourne [0, 1]
+
+
+//Parenthèses valides
+
+function isValid(str) {
+  const stack = [];
+  const map = {
+    '(': ')',
+    '{': '}',
+    '[': ']'
+  };
+
+  for (let char of str) {
+    if (map[char]) {
+      // Si le caractère est une parenthèse ouvrante, on l'ajoute à la pile
+      stack.push(char);
+    } else {
+      // Si c'est une parenthèse fermante, on vérifie si la pile n'est pas vide et si le dernier élément correspond
+      if (stack.length === 0 || map[stack.pop()] !== char) {
+        return false;
+      }
+    }
+  }
+  
+  // Si la pile est vide à la fin, toutes les parenthèses sont valides
+  return stack.length === 0;
+}
+
+// const myStr = "()"
+// console.log(isValid(myStr));
+// // retourne `true`
+    
+// const myStr = "()[]{}"
+// console.log(isValid(myStr));
+// retourne `true`
+    
+const myStr = "(]"
+console.log(isValid(myStr));
+// // retourne `false`
+    
+// const myStr = "([])"
+// console.log(isValid(myStr));
+// retourne `true`
